@@ -1,0 +1,69 @@
+﻿<Window x:Class="inventaireWPF.AjoutArticle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:inventaireWPF.ViewModel"
+        mc:Ignorable="d"
+        Title="AjoutArticle" Height="450" Width="400">
+    <Window.DataContext>
+        <viewModel:ArticlesViewModel/>
+    </Window.DataContext>
+    <StackPanel>
+        <Border Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Column="0" Grid.Row="0" FontSize="25" HorizontalAlignment ="Center" Grid.ColumnSpan="2">Ajouter un nouvel Article</Label>
+                
+                <Label Grid.Column="0" Grid.Row="1">Nom de l'article</Label>
+                <Label Grid.Column="0" Grid.Row="3">Quantité</Label>
+                <Label Grid.Column="0" Grid.Row="2">Categorie</Label>
+                <Label Grid.Column="0" Grid.Row="4">Description</Label>
+                
+                <TextBox 
+                    Text="{Binding Nom}" 
+                    Grid.Column="1" Grid.Row="1" Margin="5" 
+                    Height="20" Width="200" TextWrapping="Wrap" />
+                
+                
+                <xctk:IntegerUpDown 
+                    Value="{Binding Quantite}" 
+                    Grid.Column="1" Grid.Row="3" 
+                    Margin="5" Height="20" Width="200" />
+                
+                
+                <ComboBox x:Name="comboCat" 
+                  Grid.Column="1" Grid.Row="2" 
+                  Height="20" Width="200" 
+                  ItemsSource="{Binding CategoryList}"
+                  DisplayMemberPath="Nom" 
+                  SelectedValue="{Binding CategoryId}"
+                  SelectedValuePath="Id"/>
+                
+                <TextBox 
+                    Text="{Binding Description}"
+                    Grid.Column="1" Grid.Row="4" 
+                    Margin="5"  TextWrapping="Wrap"
+                    Height="200" Width="200" />
+
+                <Button Grid.Column="1" Grid.Row="5" Margin="15" Command="{Binding AddArticleCommand}">
+                    Enregistrer
+                </Button>
+            </Grid>
+        </Border>
+    </StackPanel>
+</Window>

@@ -1,0 +1,59 @@
+﻿<Window x:Class="inventaireWPF.PrendreArticle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:inventaireWPF.ViewModel"
+        mc:Ignorable="d"
+        Title="PrendreArticle" Height="250" Width="400">
+    <Window.DataContext>
+        <viewModel:ArticlesViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" 
+               FontSize="25" HorizontalAlignment ="Center" 
+               Grid.ColumnSpan="2">Articles Disponibles</Label>
+        <Label Grid.Column="0" Grid.Row="2">Article</Label>
+        <ComboBox x:Name="comboArt" 
+                  Grid.Column="1" Grid.Row="2" 
+                  Height="20" Width="200" 
+                  ItemsSource="{Binding ArticleList}"
+                  DisplayMemberPath="Nom" 
+                  SelectedValue="{Binding Nom}"
+                  SelectedItem="{Binding SelectedArticle}"
+                  SelectedValuePath="Nom"
+                  IsEnabled="{Binding AllowArticleSelection}" />
+
+        <Label Grid.Column="0" Grid.Row="3">Quantité</Label>
+        <xctk:IntegerUpDown Name="UpDownControlQty" 
+                            Grid.Column="1" Grid.Row="3" 
+                            Height="20" Width="200" 
+                            Minimum="1" Maximum="{Binding MaxQty}" 
+                            Value="{Binding Qty}"/>
+        <Label Grid.Column="0" Grid.Row="1">Categorie</Label>
+        <ComboBox x:Name="comboCat" 
+                  Grid.Column="1" Grid.Row="1" 
+                  Height="20" Width="200" 
+                  ItemsSource="{Binding CategoryList}" 
+                  DisplayMemberPath="Nom" 
+                  SelectedValue="{Binding SelectedCategoryId}"
+                  SelectedValuePath="Id"
+                  />
+
+
+        <Button Grid.Column="1" Grid.Row="4" Margin="30 15" Command="{Binding GetArticleCommand}">Enregistrer</Button>
+    </Grid>
+</Window>
